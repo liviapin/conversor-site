@@ -19,6 +19,12 @@ export class JsonEditorComponent {
   ) {}
 
   converter() {
+    if (!this.jsonInput.trim()) {
+      this.errorMessage = 'O JSON não pode estar vazio.';
+      return;
+    }
+
+    this.errorMessage = '';
     this.conversorJsonService.converterJsonParaCsv(this.jsonInput).subscribe({
       next: (response: Blob) => {
         console.log("sucesso");
