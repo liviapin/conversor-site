@@ -32,8 +32,15 @@ export class JsonEditorComponent {
       this.errorMessage = 'O JSON não pode estar vazio.';
       return;
     }
-
-    this.errorMessage = '';
+  
+    try {
+      JSON.parse(this.jsonInput);
+      this.errorMessage = ''; 
+    } catch (error) {
+      this.errorMessage = 'JSON inválido. Verifique o formato e tente novamente.';
+      return;
+    }
+  
     this.conversorJsonService.converterJsonParaCsv(this.jsonInput).subscribe({
       next: (response: Blob) => {
         this.exibirCsv(response);
@@ -43,6 +50,7 @@ export class JsonEditorComponent {
       },
     });
   }
+  
 
   exibirCsv(csvBlob: Blob) {
     const reader = new FileReader();
@@ -55,8 +63,16 @@ export class JsonEditorComponent {
 
   onInputChange(event: Event): void {
     const input = event.target as HTMLTextAreaElement;
-    this.jsonInput = JSON.stringify(JSON.parse(input.value));
+    try {
+      const parsedJson = JSON.parse(input.value);
+      this.jsonInput = JSON.stringify(parsedJson);
+      this.errorMessage = '';
+    } catch (error) {
+      this.errorMessage = 'JSON inválido. Verifique o formato e tente novamente.';
+      this.jsonInput = input.value;
+    }
   }
+  
 
   downloadCsv() {
     const blob = new Blob([this.csvOutput], { type: 'text/csv' });
