@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-6">
       <div>
-        <app-upload></app-upload>
-        <app-json-editor (csvGerado)="atualizarCsv($event)"></app-json-editor>
+        <app-upload (fileUploaded)="onFileUploaded($event)"></app-upload>
+        <app-json-editor [fileUploaded]="fileUploaded" (csvGerado)="atualizarCsv($event)"></app-json-editor>        
       </div>
     </div>
 

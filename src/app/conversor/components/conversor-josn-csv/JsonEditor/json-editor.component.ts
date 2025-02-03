@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConversorJsonService } from '../../../service/conversor/conversor-json.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ConversorJsonService } from '../../../service/conversor/conversor-json.
 })
 export class JsonEditorComponent {
   @Output() csvGerado = new EventEmitter<string>();
+  @Input() fileUploaded: boolean = false;
 
   jsonInput: string = '';
   csvOutput: string = '';
@@ -18,8 +19,16 @@ export class JsonEditorComponent {
     private conversorJsonService: ConversorJsonService,
   ) {}
 
+  onFileUploaded(uploaded: boolean, jsonContent: string) {
+    if (uploaded) {
+      this.jsonInput = jsonContent;
+    } else {
+      this.errorMessage = 'Erro ao carregar o arquivo JSON.';
+    }
+  }
+
   converter() {
-    if (!this.jsonInput.trim()) {
+    if (!this.jsonInput.trim() && !this.fileUploaded) {
       this.errorMessage = 'O JSON não pode estar vazio.';
       return;
     }
@@ -27,7 +36,6 @@ export class JsonEditorComponent {
     this.errorMessage = '';
     this.conversorJsonService.converterJsonParaCsv(this.jsonInput).subscribe({
       next: (response: Blob) => {
-        console.log("sucesso");
         this.exibirCsv(response);
       },
       error: () => {
@@ -35,7 +43,7 @@ export class JsonEditorComponent {
       },
     });
   }
-  
+
   exibirCsv(csvBlob: Blob) {
     const reader = new FileReader();
     reader.onload = () => {
@@ -59,6 +67,7 @@ export class JsonEditorComponent {
     link.click();
     window.URL.revokeObjectURL(downloadUrl);
   }
+
   limpar() {
     const inputElement = document.getElementById('jsonInput') as HTMLTextAreaElement;
     if (inputElement) {
@@ -68,4 +77,4 @@ export class JsonEditorComponent {
     this.errorMessage = '';
     this.csvGerado.emit('');
   }
-}
+}  

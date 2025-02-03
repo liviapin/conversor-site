@@ -8,8 +8,13 @@ import { Component } from '@angular/core';
 })
 export class ConversorJsonParaCsvComponent {
   csvResultado: string = '';
+  fileUploaded: boolean = false;
 
   atualizarCsv(resultado: string) {
     this.csvResultado = resultado;
+  }
+
+  onFileUploaded(uploaded: boolean) {
+    this.fileUploaded = uploaded;
   }
 }
