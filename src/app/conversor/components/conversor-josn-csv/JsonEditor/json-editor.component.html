@@ -1,4 +1,18 @@
-<div class="mb-3">
-    <textarea class="form-control" placeholder="Cole seu JSON aqui..."></textarea>
+<div id="jsonEditorComponent" class="mb-4">
+  <label for="jsonInput" class="form-label fw-bold fs-5">Ou cole seu JSON aqui</label>
+  <textarea 
+    id="jsonInput" 
+    class="form-control" 
+    rows="10" 
+    placeholder="Cole o JSON aqui..."
+    (input)="onInputChange($event)">
+  </textarea>
+  <div class="d-flex mt-3">
+    <button (click)="converter()" id="convertButton" class="btn btn-outline-primary me-2 py-2 px-3">
+      <i class="fas fa-exchange-alt"></i> Converter
+    </button>
+    <button (click)="limpar()" id="clearButton" class="btn btn-outline-secondary py-2 px-3">
+      <i class="fas fa-eraser"></i> Limpar
+    </button>
   </div>
-  
+</div>

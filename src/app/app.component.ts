@@ -11,5 +11,6 @@ import { AppModule } from './app.module';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  csvResultado: string = ''; 
   title = 'conversor-app';
 }

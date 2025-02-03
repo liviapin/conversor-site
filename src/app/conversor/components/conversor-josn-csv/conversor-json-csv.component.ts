@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class ConversorJsonParaCsvComponent {
+  csvResultado: string = '';
 
+  atualizarCsv(resultado: string) {
+    this.csvResultado = resultado;
+  }
 }

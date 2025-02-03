@@ -1,1 +1,15 @@
-<button class="btn btn-primary mt-3">Baixar CSV</button>
+<div id="downloadComponent" class="row">
+    <div class="col-12">
+        <label for="jsonOutput" class="form-label fw-bold fs-5">Resultado</label>
+        <textarea id="jsonOutput" class="form-control" rows="10" readonly>{{ csvOutput }}</textarea>
+
+        <div class="d-flex mt-3">
+            <button id="downloadButton" class="btn btn-outline-primary me-2 py-2 px-3" (click)="fazerDownload()">
+                <i class="fas fa-download"></i> Download
+            </button>
+            <button id="copyButton" class="btn btn-outline-success py-2 px-3" (click)="copiarTexto()">
+                <i class="fas fa-clipboard"></i> Copiar
+            </button>
+        </div>
+    </div>
+</div>

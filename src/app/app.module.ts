@@ -7,7 +7,7 @@ import { ConversorModule } from "./conversor/conversor.module";
     imports: [
         RouterModule,
         ConversorModule,
-        AppComponent
+        AppComponent,
     ],
       bootstrap: [AppComponent],
     })
